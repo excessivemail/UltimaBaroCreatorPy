@@ -33,7 +33,8 @@ def upsert_text(mod_root,tag,text):
 
 def add_filelist_entry(mod_root,rel):
     ensure_base_files(mod_root)
-    rel=rel.replace("\","/")
+    # Normalize path separators to ensure consistent XML entries on all platforms
+    rel=rel.replace("\\","/")
     fl=os.path.join(mod_root,"filelist.xml")
     t=ET.parse(fl);r=t.getroot()
     if rel.lower().startswith("items/"): tag="Item"
